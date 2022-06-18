@@ -46,8 +46,8 @@ app.post("/api/shorturl", (req, res) => {
         }
     });
 
-    urlStore.urls.push({ url: req.body.url, id: urlStore.next });
-    res.json({ original_url: req.body.url, short_url: urlStore.next });
+    urlStore.urls.push({ url: req.body.url.replace(/\/$/g, ""), id: urlStore.next });
+    res.json({ original_url: req.body.url.replace(/\/$/g, ""), short_url: urlStore.next });
 
     urlStore.next = urlStore.next + 1;
 });
