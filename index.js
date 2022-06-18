@@ -65,7 +65,7 @@ app.get("/api/shorturl/:id", (req, res) => {
 
     const foundIndex = urlStore.urls.findIndex((el) => el.id === id);
     if (foundIndex > -1) {
-        return res.redirect(301, urlStore.urls[foundIndex].url);
+        return res.redirect(302, urlStore.urls[foundIndex].url);
     }
 
     res.json({ error: "No short URL found for the given input" });
