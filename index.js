@@ -48,12 +48,11 @@ app.post("/api/shorturl", (req, res) => {
             console.error(err);
             return res.json({ error: "invalid url" });
         }
+        urlStore.urls.push({ url: req.body.url.replace(/\/$/g, ""), id: urlStore.next });
+        res.json({ original_url: req.body.url.replace(/\/$/g, ""), short_url: urlStore.next });
+
+        urlStore.next = urlStore.next + 1;
     });
-
-    urlStore.urls.push({ url: req.body.url.replace(/\/$/g, ""), id: urlStore.next });
-    res.json({ original_url: req.body.url.replace(/\/$/g, ""), short_url: urlStore.next });
-
-    urlStore.next = urlStore.next + 1;
 });
 
 app.get("/api/shorturl/:id", (req, res) => {
