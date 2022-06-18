@@ -40,7 +40,7 @@ app.post("/api/shorturl", (req, res) => {
         return res.json({ error: "Invalid URL" });
     }
 
-    let url = req.body.url?.replace(/^https?:\/\/(www)?./g, "");
+    let url = req.body.url?.replace(/^https?:\/\/(www\.?)?/g, "");
     url = url.replace(/\/$/g, "");
 
     dns.lookup(url, (err) => {
