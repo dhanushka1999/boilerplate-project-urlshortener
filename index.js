@@ -36,12 +36,12 @@ app.post("/api/shorturl", (req, res) => {
         return res.json({ original_url: req.body.url, short_url: urlStore.urls[foundIndex].id });
     }
 
-    if (!req.body.url.match(/^https?:\/\/(www)?./g)) {
+    if (!req.body.url.match(/^(https?:\/\/(www\.?)?)/g)) {
         return res.json({ error: "Invalid URL" });
     }
 
-    let url = req.body.url?.replace(/^https?:\/\/(www\.?)?/g, "");
-    url = url.replace(/\/$/g, "");
+    let url = req.body.url?.replace(/(https?:\/\/(www\.?)?)/g, "");
+    url = url.replace(/\/.*$/g, "");
 
     dns.lookup(url, (err) => {
         if (err) {
